@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.lang.Character;
 
 public class TestUserInputs {
 
@@ -36,11 +37,19 @@ public class TestUserInputs {
 
     public static boolean checkPIDEntry(String userInput){
         char[] chars = userInput.toCharArray();
+        if (Character.compare(chars[0], '0') == 0) { // Make sure PID is 7 digits
+            return false;
+        }
+        if (!(chars.length == 7)) { // Make sure PID is 7 digits
+            return false;
+        }
         for (char nextChar : chars) {
-            if (Character.isDigit()) {
-                //****************************************************************
+            if (!(Character.isDigit(nextChar))) { // Make sure PID doesn't have non-number characters
+                return false;
             }
         }
+        return true;
+
     }
 
 }

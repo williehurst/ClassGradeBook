@@ -28,11 +28,12 @@ public class Main {
             String[] usersInputSplit = userInput.split(" ");// Split up user input for testing
 
             // make sure input is in correct format
-            if (!(TestUserInputs.checkNameEntry(usersInputSplit[0])))// First name check
+            if (!(TestUserInputs.checkNameEntry(usersInputSplit[0])))// First name format check
                 System.out.println(TRY_AGAIN_MESSAGE);
-            if (!(TestUserInputs.checkNameEntry(usersInputSplit[1])))// Last name check
+            if (!(TestUserInputs.checkNameEntry(usersInputSplit[1])))// Last name format check
                 System.out.println(TRY_AGAIN_MESSAGE);
-            if
+            if (!(TestUserInputs.checkPIDEntry(usersInputSplit[2])))// PID format check
+                System.out.println(TRY_AGAIN_MESSAGE);
 
 
             // Developer's printout test for user inputs (Comment out before final build)
