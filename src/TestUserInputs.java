@@ -34,4 +34,13 @@ public class TestUserInputs {
         return true;
     }
 
+    public static boolean checkPIDEntry(String userInput){
+        char[] chars = userInput.toCharArray();
+        for (char nextChar : chars) {
+            if (Character.isDigit()) {
+                //****************************************************************
+            }
+        }
+    }
+
 }

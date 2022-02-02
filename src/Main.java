@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] Args){
 
-        final String TRY_AGAIN_MESSAGE = "Please try again using correct format";
+        final String TRY_AGAIN_MESSAGE = "Please try again using correct format"; // Try Again Message
         Scanner keyboard = new Scanner(System.in); // Scanner to capture user's keyboard
         String userInput; // Store user input for Algo's.
 
@@ -32,11 +32,12 @@ public class Main {
                 System.out.println(TRY_AGAIN_MESSAGE);
             if (!(TestUserInputs.checkNameEntry(usersInputSplit[1])))// Last name check
                 System.out.println(TRY_AGAIN_MESSAGE);
+            if
 
 
             // Developer's printout test for user inputs (Comment out before final build)
-            TestUserInputs.showPrintOut(usersInputSplit);
-            TestUserInputs.showPrintOut(userInput);
+            //TestUserInputs.showPrintOut(usersInputSplit);
+            //TestUserInputs.showPrintOut(userInput);
 
         } while (!userInput.equals("Done"));
 
