@@ -1,8 +1,9 @@
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Collections;
 
 public class GradeBook {
     ArrayList<Student> gradebook = new ArrayList<>();
+    .ge;
 
     // Constructor
     public void addStudent(Student student) {
@@ -14,6 +15,8 @@ public class GradeBook {
         for (Student student : gradebook){
             if (student.getPID() == pID){
                 student.setGrade(gradeNum);
+            } else {
+                System.out.println("Please try again, that PID couldn't be found."); // if we can't find PID then return this message
             }
         }
     }
@@ -70,23 +73,94 @@ public class GradeBook {
         return highestLetter;
     }
 
+    // This method will get the letter grade by looking up PID
+    public String getLetterGrade(int pID) {
+        String letter = null;
+        for (Student student : gradebook){
+            if (student.getPID() == pID){
+                letter = student.getLetterGrade();
+            } else {
+                letter = "PID not found in grade book"; // if we can't find PID then return this message
+            }
+        }
+        return letter;
+    }
 
+    // This method will get the name by looking up PID
+    public String getName(int pID) {
+        String name = null;
+        for (Student student : gradebook){
+            if (student.getPID() == pID){
+                name = student.getFirstName() + " " + student.getLastName();
+            } else {
+                name = "PID not found in grade book"; // if we can't find PID then return this message
+            }
+        }
+        return name;
+    }
 
-    /*Method To Do List.....	Yay :'-(
-    done changeGrade(int pID, int gradeNum)
-	done minScore()
-	done minLetter()
-	done maxScore()
-	done maxLetter()
-	getLetterGradeByPID()
-	getNameByPID()
-	averageScore()
-	averageLetter()
-	medianScore()
-	medianLetter()
-	tabScores()
-    tabLetters()
-    */
+    // This method will get the average score of class
+    public double average(){
+        double totalOfGrades = 0;
+        double averageOfGrades = 0;
+        for (Student student : gradebook) {
+            totalOfGrades =+ student.getNumberGrade(); // add up all Student's grade
+        }
+        averageOfGrades = totalOfGrades / gradebook.size(); //calc average
+        return averageOfGrades;
+    }
+
+   // This method will find the median score
+    public double median() {
+        double medianGrade;
+        ArrayList<Integer> classGrades = new ArrayList<>();// list to hold class grades
+        for (Student student : gradebook){ // add class grades to list
+            classGrades.add(student.getNumberGrade());
+        }
+        Collections.sort(classGrades); // sort class grades in order
+
+        if ((classGrades.size() % 2) == 0) { // If there are even amount of grades use this algo
+            int medianGrade1 = classGrades.get((classGrades.size()/2)-1);
+            int medianGrade2 = classGrades.get(classGrades.size()/2);
+            medianGrade = (double)(medianGrade1 + medianGrade2) / 2;
+        } else { // if odd number of grades use this algo
+            medianGrade = classGrades.get((classGrades.size()/2));
+        }
+        return medianGrade;
+    }
+
+    // This method will find the median letter grade
+    public String medianLetter() {
+        String medianLetter;
+        ArrayList<String> classGrades = new ArrayList<>();// list to hold class grades
+        for (Student student : gradebook){ // add class grades to list
+            classGrades.add(student.getLetterGrade());
+        }
+        Collections.sort(classGrades); // sort class grades in order
+        medianLetter = classGrades.get((classGrades.size()/2)); //Return middle grade
+
+        return medianLetter;
+    }
+
+    // This method will print out a table of students with last column showing grade number
+    public void tabScores() {
+        for (Student student : gradebook) {
+            System.out.println(student.getFirstName() + "\t"
+                            + student.getLastName() + "\t"
+                            + student.getPID() + "\t"
+                            + student.getNumberGrade());
+        }
+    }
+
+    // This method will print out a table of students with last column showing letter grade
+    public void tabLetters() {
+        for (Student student : gradebook) {
+            System.out.println(student.getFirstName() + "\t"
+                            + student.getLastName() + "\t"
+                            + student.getPID() + "\t"
+                            + student.getLetterGrade());
+        }
+    }
 }
 
 
