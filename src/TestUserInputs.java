@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.lang.Character;
 import java.util.Scanner;
 
@@ -10,6 +9,10 @@ public class TestUserInputs {
         Scanner keyboard = new Scanner(System.in); // Scanner fo user input in loop.
         boolean isCorrectFormat = true; // boolean to store bool if user used correct format
         String[] usersInputSplit = userInput.split(" ");// Split up user input for testing
+        while (usersInputSplit.length != 4) {// If user didn't enter all 4 Strings we requested then start loop
+            System.out.println("Please check input and enter first name, last name, PID, grade: ");
+            usersInputSplit = keyboard.nextLine().split(" ");
+        }
         String strFirstName = usersInputSplit[0];
         String strLastName = usersInputSplit[1];
         String strPID = usersInputSplit[2]; // PID
@@ -36,7 +39,7 @@ public class TestUserInputs {
                 isCorrectFormat = false;
             } else if (!(TestUserInputs.checkPIDEntry(strPID))) {// PID format check
                 isCorrectFormat = false;
-            } else if (!(TestUserInputs.checkGradeEntry(strGrade))) {// PID format check
+            } else if (!(TestUserInputs.checkGradeEntry(strGrade))) {// grade format check
                 isCorrectFormat = false;
             } else {
                 isCorrectFormat = true; // if all checks passed then flag changed to true to exit loop
@@ -102,7 +105,7 @@ public class TestUserInputs {
     }
 
     // Method to verify Grade input is correct
-    private static boolean checkGradeEntry(String userInput) {
+    public static boolean checkGradeEntry(String userInput) {
         if (!(userInput.matches("[0-9]+"))){ // Make sure user input is a number
             return false;
         }
@@ -110,6 +113,73 @@ public class TestUserInputs {
         return (userInputAsInt >= 0) && (userInputAsInt <= 100);// make sure Grade is not negative & <= 100
     }
 
+    // Method to test that PID is correct format and keep re-asking until correct
+    public static String checkAndReturnPID(String userInput) {
+        Scanner keyboard = new Scanner(System.in); // used to recapture user input if format incorrect
+        char[] chars = userInput.toCharArray();
+        boolean isCorrectFormat = true;
 
+        do {
+            if (!isCorrectFormat){
+                userInput = keyboard.nextLine();
+                chars = userInput.toCharArray();
+                isCorrectFormat = true;
+            }
+            if (Character.compare(chars[0], '0') == 0) { // Make sure there's no leading 0's.
+                System.out.println("Please enter a valid PID");
+                isCorrectFormat = false;
+                continue;
+            } else if (!(chars.length == 7)) { // Make sure PID is 7 digits
+                System.out.println("Please enter a valid PID");
+                isCorrectFormat = false;
+                continue;
+            }
+            for (char nextChar : chars) {
+                if (!(Character.isDigit(nextChar))) { // Make sure PID doesn't have non-number characters
+                    System.out.println("Please enter a valid PID");
+                    isCorrectFormat = false;
+                }
+            }
+        } while (!isCorrectFormat);
+        return userInput;
+    }
 
+    // Method to check PID and grade input from user is correct
+    public static String checkAndReturnPIDGrade(String userInput){
+        Scanner keyboard = new Scanner(System.in); // to recapture user input if needed.
+        boolean isCorrectPIDFormat, isCorrectGradeFormat;
+        String pID = null, grade = null; // to store PID and grade once in correct format
+        String[] gradeAndPIDInput = userInput.split(" "); // split PID and Grade inputs up into array
+
+        while (gradeAndPIDInput.length != 2) {// If user didn't enter both Strings we requested then start loop
+            System.out.println("Please check input and enter XXXXXXX YY. X's are the PID and Y's are new grade:");
+            gradeAndPIDInput = keyboard.nextLine().split(" ");
+        }
+
+        isCorrectPIDFormat = TestUserInputs.checkPIDEntry(gradeAndPIDInput[0]); // First check if PID format is ok.
+        isCorrectGradeFormat = TestUserInputs.checkGradeEntry(gradeAndPIDInput[1]); // First check if PID format is ok.
+
+        // get correct PID format
+        if (!isCorrectPIDFormat) {
+            do {
+                System.out.println("Please enter a valid PID:");
+                isCorrectPIDFormat = TestUserInputs.checkPIDEntry(keyboard.nextLine());// test input again
+            } while (!isCorrectPIDFormat); // keep asking for a correct PID until format is correct
+        } else {
+            pID = gradeAndPIDInput[0]; // if format for PID was correct store it for return.
+        }
+
+        // make sure PID is in grade book
+
+        // get correct Grade format
+        if (!isCorrectGradeFormat) {
+            do {
+                System.out.println("Please enter a valid PID:");
+                isCorrectGradeFormat = TestUserInputs.checkGradeEntry(keyboard.nextLine());// test input again
+            } while (!isCorrectGradeFormat); // keep asking for a correct PID until format is correct
+        } else {
+            grade = gradeAndPIDInput[1]; // if format for PID was correct store it for return.
+        }
+        return pID + " " + grade; // return correctly formatted pID and grade
+    }
 }

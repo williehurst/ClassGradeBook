@@ -22,6 +22,36 @@ public class Grade {
 
     // Method to return grade letter
     public String getLetterGrade() {
+        return gradeScoreToLetter(this.grade); // returns Instance variable grade as a letter grade
+    }
+
+    // This method turns grade scores to letter grades
+    public static String gradeScoreToLetter(int grade) {
+        String letterGrade;
+        if (grade >= 90) {
+            letterGrade = "A";
+        } else if ((grade < 90) && (grade >= 85)) {
+            letterGrade = "A-";
+        } else if ((grade < 85) && (grade >= 80)) {
+            letterGrade = "B+";
+        } else if ((grade < 80) && (grade >= 75)) {
+            letterGrade = "B";
+        } else if ((grade < 75) && (grade >= 70)) {
+            letterGrade = "B-";
+        } else if ((grade < 70) && (grade >= 65)) {
+            letterGrade = "C+";
+        } else if ((grade < 65) && (grade >= 60)) {
+            letterGrade = "C";
+        } else if ((grade < 60) && (grade >= 50)) {
+            letterGrade = "D";
+        } else {
+            letterGrade = "F";
+        }
+        return letterGrade;
+    }
+
+    // This is an overloaded method that turns grade scores to letter grades
+    public static String gradeScoreToLetter(double grade) {
         String letterGrade;
         if (grade >= 90) {
             letterGrade = "A";
