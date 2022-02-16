@@ -27,12 +27,17 @@ public class GradeBook {
 
     // This method will find student by PID and change their grade
     public void changeGrade(String pID, String gradeNum) {
+        boolean pIDIsFound = false;
         for (Student student : gradeBook){
             if (student.getPID() == Integer.parseInt(pID)){
                 student.setGrade(Integer.parseInt(gradeNum));
-            } else {
-                System.out.println("Please try again, that PID couldn't be found."); // if we can't find PID then return this message
+                System.out.println(pID + "'s grade has been changed to " + gradeNum);
+                pIDIsFound = true;
+                break;
             }
+        }
+        if (!pIDIsFound) {
+            System.out.println("Please try again, that PID couldn't be found."); // if we can't find PID then return this message
         }
     }
 
@@ -42,6 +47,7 @@ public class GradeBook {
         for (Student student : gradeBook){
             if (student.getPID() == Integer.parseInt(pID)){
                 studentToRemove = student;
+                System.out.println(pID + "'s grade book entry has been deleted."); // let user delete was successful
             } else {
                 System.out.println("Please try again, that PID couldn't be found."); // if we can't find PID then return this message
             }
@@ -209,11 +215,15 @@ public class GradeBook {
 
     // This method will print out a table of students with last column showing grade number
     public void tabScores() {
-        for (Student student : gradeBook) {
-            System.out.println(student.getFirstName() + "\t"
-                            + student.getLastName() + "\t"
-                            + student.getPID() + "\t"
-                            + student.getNumberGrade());
+        if (gradeBook.size() == 0) {
+            System.out.println("There are no students in the grade book.");
+        } else {
+            for (Student student : gradeBook) {
+                System.out.println(student.getFirstName() + "\t"
+                        + student.getLastName() + "\t"
+                        + student.getPID() + "\t"
+                        + student.getNumberGrade());
+            }
         }
     }
 

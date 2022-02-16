@@ -123,9 +123,13 @@ public class Main {
                             XXXXXXX YY
                             X's are the PID and Y's are new grade:\s""");
                 userInput = keyboard.nextLine(); // get PID
-                String validPIDAndGrade = TestUserInputs.checkAndReturnPIDGrade(userInput); // String that contains PID and grade
-                gradeBook.changeGrade(validPIDAndGrade.split(" ")[0], validPIDAndGrade.split(" ")[1]);
-                System.out.println(validPIDAndGrade.split(" ")[0] + "'s grade has been changed to " + validPIDAndGrade.split(" ")[1]);
+                if (userInput.length() < 2) {
+                    System.out.println("Invalid PID and/or Grade");
+                    break;
+                } else {
+                    String validPIDAndGrade = TestUserInputs.checkAndReturnPIDGrade(userInput); // String that contains PID and grade
+                    gradeBook.changeGrade(validPIDAndGrade.split(" ")[0], validPIDAndGrade.split(" ")[1]);
+                }
                 break;
             case "8":
                 System.out.println("The class average grade is: " + gradeBook.average());
@@ -153,7 +157,6 @@ public class Main {
                 userInput = keyboard.nextLine(); // get PID
                 validPID = TestUserInputs.checkAndReturnPID(userInput);
                 gradeBook.removeStudent(validPID);
-                System.out.println(validPID + "'s grade book entry has been deleted."); // let user delete was successful
                 break;
             case "16":
                 System.exit(0);
