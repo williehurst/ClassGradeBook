@@ -83,7 +83,8 @@ public class Main {
                 11. Class median letter grade
                 12. Table of students scores
                 13. Table of students letter grades
-                15. Add more students
+                14. Add more students
+                15. Remove student by PID from grade book.
                 16. Quit
                 """);
     }
@@ -145,10 +146,14 @@ public class Main {
                 gradeBook.tabLetters();
                 break;
             case "14":
-                System.exit(0);
+                addStudentToGradeBook(gradeBook);
                 break;
             case "15":
-                addStudentToGradeBook(gradeBook);
+                System.out.print("Please enter a PID: ");
+                userInput = keyboard.nextLine(); // get PID
+                validPID = TestUserInputs.checkAndReturnPID(userInput);
+                gradeBook.removeStudent(validPID);
+                System.out.println(validPID + "'s grade book entry has been deleted."); // let user delete was successful
                 break;
             case "16":
                 System.exit(0);

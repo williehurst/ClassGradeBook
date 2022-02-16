@@ -36,6 +36,19 @@ public class GradeBook {
         }
     }
 
+    // This method will find student by PID and Delete their entire entry.
+    public void removeStudent(String pID) {
+        Student studentToRemove = null;
+        for (Student student : gradeBook){
+            if (student.getPID() == Integer.parseInt(pID)){
+                studentToRemove = student;
+            } else {
+                System.out.println("Please try again, that PID couldn't be found."); // if we can't find PID then return this message
+            }
+        }
+        gradeBook.remove(studentToRemove); // Remove the student from grade book.
+    }
+
     // This method will find the lowest score in class
     public int minScore(){
         int lowestGrade = 0;
@@ -206,11 +219,15 @@ public class GradeBook {
 
     // This method will print out a table of students with last column showing letter grade
     public void tabLetters() {
-        for (Student student : gradeBook) {
-            System.out.println(student.getFirstName() + "\t"
-                            + student.getLastName() + "\t"
-                            + student.getPID() + "\t"
-                            + student.getLetterGrade());
+        if (gradeBook.size() == 0) {
+            System.out.println("There are no students in the grade book.");
+        } else {
+            for (Student student : gradeBook) {
+                System.out.println(student.getFirstName() + "\t"
+                        + student.getLastName() + "\t"
+                        + student.getPID() + "\t"
+                        + student.getLetterGrade());
+            }
         }
     }
 }
